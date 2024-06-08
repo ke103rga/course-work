@@ -1,5 +1,7 @@
 from pandas import DataFrame, concat, merge
 
+from pandas import DataFrame, concat, merge
+
 
 class PortfolioBalancer:
     """
@@ -28,7 +30,7 @@ class PortfolioBalancer:
         'pi': 'potential_income'
     }
 
-    def __init__(self, ensemble, common_data):
+    def __init__(self, ensemble, common_data, tickers_from_sector=5, criterion='fr'):
         """
         Initialize the PortfolioBalancer.
 
@@ -39,6 +41,47 @@ class PortfolioBalancer:
 
         self.ensemble = ensemble
         self.common_data = common_data
+        self.tickers_from_sector = tickers_from_sector
+        self.criterion = criterion
+
+    @staticmethod
+    def select_closest_ndays(history, report_date, n=10, back=True):
+        # print(report_date)
+        deltas = (pd.to_datetime(report_date) - pd.to_datetime(history['date'].dt.date)).apply(lambda delta: delta.days)
+
+        if back:
+            closest_history = history.loc[deltas[deltas > 0].sort_values().head(n).index, ('open', 'close', 'date')]
+        else:
+            closest_history = history.loc[
+                deltas[deltas < 0].sort_values(ascending=False).head(n).index, ('open', 'close', 'date')]
+        closest_history['day_mean'] = closest_history.loc[:, ('open', 'close')].mean(axis=1)
+        return closest_history.loc[:, ('date', 'day_mean')].sort_values(by=['date'])
+
+    def get_actual_market_caps(self, report_date):
+
+        last_share_numbers = self.common_data[self.common_data['date'] <= report_date].sort_values(
+            by=['symbol', 'date'], ascending=False) \
+                                 .groupby('symbol').head(1).loc[:, ('symbol', 'ordinary_shares_number')]
+
+        actual_quotes = []
+        for sector, symbol in self.common_data[['sector', 'symbol']].value_counts().reset_index()[
+            ['sector', 'symbol']].values:
+            # print(sector, symbol)
+            history = pd.read_csv(f'{settings.FINANCE_DATA_DIRECTORY}\\{sector}\\{symbol}\\history.csv',
+                                  parse_dates=['date'])
+            last_qoutes = PortfolioBalancer.select_closest_ndays(history, report_date, 10, back=True)
+            actual_qoute = last_qoutes['day_mean'].mean()
+            actual_quotes.append([sector, symbol, actual_qoute])
+
+        actual_market_caps = pd.merge(
+            last_share_numbers,
+            pd.DataFrame(columns=['sector', 'symbol', 'actual_quote'], data=actual_quotes),
+            how='inner',
+            on='symbol'
+        )
+        actual_market_caps['actual_market_cap'] = actual_market_caps['actual_quote'] * actual_market_caps[
+            'ordinary_shares_number']
+        return actual_market_caps.loc[:, ('sector', 'symbol', 'actual_market_cap')]
 
     def predict(self, ensemble_predict_params: dict) -> DataFrame:
         """
@@ -49,7 +92,7 @@ class PortfolioBalancer:
         """
         return self.ensemble.predict(**ensemble_predict_params)
 
-    def predict_fair_real_rates(self, ensemble_predict_params: dict, orig_data: DataFrame) -> DataFrame:
+    def predict_fair_real_rates(self, ensemble_predict_params: dict, orig_data: DataFrame, rebalance_date) -> DataFrame:
         """
         Predict the ratio of the fair value of the company to the market value by ensemble of models.
 
@@ -68,19 +111,30 @@ class PortfolioBalancer:
         prev_data['prev_market_cap'] = prev_data.groupby('symbol')['market_cap'].shift(-1)
 
         # From original (not preprocessed) data extract only important features
-        fair_real_rates = orig_data.loc[:, ('symbol', 'sector', 'market_cap', 'date')]
+        fair_real_rates = orig_data.loc[:, ('symbol', 'sector', 'date')]
         # Add information about predicted difference and previous values
         fair_real_rates['predictions'] = predictions
         fair_real_rates = fair_real_rates.merge(prev_data.loc[:, ('symbol', 'date', 'prev_market_cap')],
                                                 on=['symbol', 'date'])
+        # Taking only last (actual) reports data for every ticker
+        fair_real_rates = fair_real_rates[fair_real_rates['date'] <= rebalance_date] \
+            .sort_values(by=['symbol', 'date'], ascending=False) \
+            .groupby('symbol').head(1)
+        # Getting the actual market cap for particular date
+        actual_market_caps = self.get_actual_market_caps(rebalance_date).loc[:, ('symbol', 'actual_market_cap')]
+        fair_real_rates = fair_real_rates.merge(
+            actual_market_caps,
+            how='inner', on='symbol'
+        )
         # Compute fair capitalisation via predicted difference and compare it with real cap
         fair_real_rates['fair_market_cup_via_diff'] = fair_real_rates['prev_market_cap'] + fair_real_rates[
             'prev_market_cap'] * fair_real_rates['predictions']
-        fair_real_rates['fair_real_ratio'] = fair_real_rates['fair_market_cup_via_diff'] / fair_real_rates['market_cap']
+        fair_real_rates['fair_real_ratio'] = fair_real_rates['fair_market_cup_via_diff'] / fair_real_rates[
+            'actual_market_cap']
 
         return fair_real_rates
 
-    def compute_sector_cap(self, fair_real_rates: DataFrame, new_portfolio: DataFrame) -> DataFrame:
+    def compute_sector_cap(self, rebalance_date, new_portfolio: DataFrame) -> DataFrame:
         """
         Compute sector-wise total market capitalization of all companies for new portfolio.
 
@@ -90,19 +144,16 @@ class PortfolioBalancer:
         """
         # To define part of ticker in final portfolio it's necessary to know part of it sector in whole market cap.
         # To get that part we will take the latest info.
-        missed_tickers = self.common_data[~self.common_data['symbol'].isin(fair_real_rates.symbol.unique())] \
-            .sort_values(by=['symbol', 'date'], ascending=False)
-        missed_tickers = missed_tickers.groupby('symbol').head(1).loc[:, ('sector', 'symbol', 'market_cap')]
-        sector_cap = concat([
-            missed_tickers, fair_real_rates.loc[:, ('sector', 'symbol', 'market_cap')]
-        ], axis=0)
-        sector_cap = sector_cap.groupby('sector').agg(**{'total_cap': ('market_cap', 'sum')}).reset_index()
+        # missed_tickers = self.common_data[~self.common_data['symbol'].isin(fair_real_rates.symbol.unique())] \
+        #     .sort_values(by=['symbol', 'date'], ascending=False)
+        # missed_tickers = missed_tickers.groupby('symbol').head(1).loc[:, ('sector', 'symbol', 'market_cap')]
+        sector_cap = self.get_actual_market_caps(rebalance_date)
+        sector_cap = sector_cap.groupby('sector').agg(**{'total_cap': ('actual_market_cap', 'sum')}).reset_index()
         sector_cap = sector_cap[sector_cap['sector'].isin(new_portfolio.sector.unique())]
         sector_cap['part_of_market'] = sector_cap['total_cap'].divide(sector_cap['total_cap'].sum())
         return sector_cap
 
-    def update_portfolio(self, fair_real_rates: DataFrame, current_portfolio: DataFrame = None, top_n: int = 5,
-                         criterion: str = 'fr') -> DataFrame:
+    def update_portfolio(self, fair_real_rates: DataFrame, current_portfolio: DataFrame = None) -> DataFrame:
         """
         Update the investment portfolio based on fair real rates and specified criteria.
         First of all the ratio of the fair value of the company to the market value predicts, to detect underrated
@@ -120,14 +171,14 @@ class PortfolioBalancer:
         :return: Updated DataFrame representing the investment portfolio.
         """
         if current_portfolio is None:
-            current_portfolio = DataFrame(columns=['sector', 'symbol', 'fair_real_ratio', 'Market Cap'])
+            current_portfolio = DataFrame(columns=['sector', 'symbol', 'fair_real_ratio', 'actual_market_cap'])
 
         # To update a portfolio necessary update fair_real_rates for input data
         # At the same time we should save last rates for tickers which weren't updated
         new_portfolio = concat([
-            fair_real_rates.loc[:, ('sector', 'symbol', 'fair_real_ratio', 'Market Cap')],
+            fair_real_rates.loc[:, ('sector', 'symbol', 'fair_real_ratio', 'actual_market_cap')],
             current_portfolio[~current_portfolio['symbol'].isin(fair_real_rates.symbol.unique())] \
-                .loc[:, ('sector', 'symbol', 'fair_real_ratio', 'Market Cap')]
+                .loc[:, ('sector', 'symbol', 'fair_real_ratio', 'actual_market_cap')]
         ])
 
         # Take top tickers by 'fair_real_ratio' and drop all which value less than 1
@@ -135,24 +186,25 @@ class PortfolioBalancer:
 
         # To define part of ticker in final portfolio it's necessary to know part of it sector in whole market cap.
         # To get that part we will take the latest info.
-        sector_cap = self.compute_sector_cap(fair_real_rates, new_portfolio)
+        sector_cap = self.compute_sector_cap(fair_real_rates['date'].max(), new_portfolio)
 
-        feature_criterion = self._criterion_aliases.get(criterion, 'fair_real_ratio')
+        feature_criterion = self._criterion_aliases.get(self.criterion, 'fair_real_ratio')
         # print(feature_criterion)
         if feature_criterion == 'pothential_income':
-            new_portfolio['pothential_income'] = new_portfolio['Market Cap'] * (new_portfolio['fair_real_ratio'].sub(1))
+            new_portfolio['pothential_income'] = new_portfolio['actual_market_cap'] * (
+                new_portfolio['fair_real_ratio'].sub(1))
 
         new_portfolio = new_portfolio.sort_values(by=['sector', 'fair_real_ratio'], ascending=False).groupby(
-            'sector').head(top_n)
+            'sector').head(self.tickers_from_sector)
 
         # Compute total rates for every sector
         total = new_portfolio.groupby('sector').agg(**{'total': (feature_criterion, 'sum')}).reset_index()
 
-        new_portfolio = new_portfolio.sort_values(by=['sector', feature_criterion], ascending=False)\
-                                     .groupby('sector').head(top_n)
+        new_portfolio = new_portfolio.sort_values(by=['sector', feature_criterion], ascending=False) \
+            .groupby('sector').head(self.tickers_from_sector)
 
-        new_portfolio = new_portfolio.merge(sector_cap.loc[:, ('sector', 'part_of_market')], on='sector')\
-                                     .merge(total, on='sector')
+        new_portfolio = new_portfolio.merge(sector_cap.loc[:, ('sector', 'part_of_market')], on='sector') \
+            .merge(total, on='sector')
         # Compute portfolio part by formula
         new_portfolio['portfolio_part'] = new_portfolio[feature_criterion] / new_portfolio['total'] * new_portfolio[
             'part_of_market']
