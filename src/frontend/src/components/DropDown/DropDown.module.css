@@ -1,0 +1,12 @@
+.drop-down {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 80vw;
+  gap: 10vw;
+}
+
+.drop-down :first-child {
+  flex-basis: 40vw;
+  flex-shrink: 0;
+}

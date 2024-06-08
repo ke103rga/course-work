@@ -1,0 +1,19 @@
+.auth-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  align-items: center;
+}
+
+.auth-form input {
+  width: 30vw;
+  height: 50px;
+  border-radius: 1vw;
+  padding-left: 0.5vw;
+}

@@ -1,0 +1,18 @@
+.strategy-block {
+  display: flex;
+  gap: 2vw;
+  align-items: center;
+  padding: 0 5vw;
+}
+
+.strategy-block img {
+  width: 47vw;
+}
+
+.strategy-block tr :first-child {
+  font-weight: 400;
+}
+
+.strategy-block > :first-child > :last-child {
+  width: 100%;
+}

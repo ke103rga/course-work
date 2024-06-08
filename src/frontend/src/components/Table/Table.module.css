@@ -1,0 +1,51 @@
+.table-wrapper {
+  border: 2px solid var(--cyan);
+  border-radius: 0.5vw;
+  width: 85%;
+}
+
+.table-wrapper table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table * {
+  text-align: center;
+}
+
+@media (orientation: portrait) {
+  .table-wrapper table {
+    font-size: 5px;
+  }
+}
+
+@media (min-width: 744px) {
+  .table-wrapper table {
+    font-size: 11px;
+  }
+}
+
+@media (min-width: 834px) {
+  .table-wrapper table {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .table-wrapper table {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .table-wrapper table {
+    font-size: 19px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .table-wrapper table {
+    font-size: 20px;
+  }
+}

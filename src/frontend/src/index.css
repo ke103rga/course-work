@@ -1,0 +1,22 @@
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --light-blue: #edf2f4;
+  --light-brown: #726b61;
+  --yellow: #cea140;
+  --dark-brown: #4a4238;
+  --cyan: #0c4b6b;
+  background-color: var(--light-blue);
+  text-align: center;
+}
+
+* {
+  font-family: Montserrat;
+  padding: 0px;
+  margin: 0px;
+  border: none;
+  box-sizing: border-box;
+  font-weight: 700;
+}

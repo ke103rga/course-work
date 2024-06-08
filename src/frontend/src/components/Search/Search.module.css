@@ -1,0 +1,29 @@
+.search {
+  display: flex;
+  flex-direction: row;
+  gap: 1vw;
+  width: 100%;
+}
+
+.search input {
+  width: 60vw;
+  border-radius: 0.5vw;
+  background-color: var(--yellow);
+  color: var(--dark-brown);
+  padding: 0.5vw;
+  box-shadow: 0 9px 9px rgba(0, 0, 0, 0.3);
+}
+
+.search button {
+  background-color: var(--yellow);
+  color: var(--dark-brown);
+}
+
+.search button:hover {
+  background-color: var(--cyan);
+  color: var(--light-blue);
+}
+
+.search input:focus {
+  outline: none;
+}

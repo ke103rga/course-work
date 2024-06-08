@@ -1,0 +1,3 @@
+symbol,sector,market_cap,ordinary_shares_number,date,predictions,prev_market_cap,fair_market_cup_via_diff,market_cap_norm,fair_market_cap_norm
+KVUE,Consumer Discretionary,38817177331.09861,1914909765.0,2023-09-30,-0.17765660887627388,40401082748.68015,33223563392.619907,20.271021664093194,17.349936795909496
+KVUE,Consumer Discretionary,40401082748.68015,1915407000.0,2023-12-31,0.11360238987077521,,,21.092688263476198,

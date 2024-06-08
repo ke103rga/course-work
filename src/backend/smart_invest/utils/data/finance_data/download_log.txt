@@ -1,0 +1,90 @@
+2024-04-30 11:27:12 ERROR: reports of ticker CRH   do not contains any information
+2024-04-30 11:27:16 ERROR: reports of ticker CX    do not contains any information
+2024-04-30 11:27:55 WARNING: reports of ticker JCI   contains mismatched dates
+2024-04-30 11:28:34 WARNING: reports of ticker PKX   contains mismatched dates
+2024-04-30 11:28:48 WARNING: reports of ticker TDG   contains mismatched dates
+2024-04-30 11:28:50 WARNING: reports of ticker TDY   contains mismatched dates
+2024-04-30 11:29:04 WARNING: reports of ticker VLTO  contains mismatched dates
+2024-04-30 11:29:32 WARNING: reports of ticker AZO   contains mismatched dates
+2024-04-30 11:29:59 WARNING: reports of ticker COST  contains mismatched dates
+2024-04-30 11:30:18 WARNING: reports of ticker DPZ   contains mismatched dates
+2024-04-30 11:30:49 ERROR: reports of ticker HLN   do not contains any information
+2024-04-30 11:30:54 ERROR: reports of ticker IHG   do not contains any information
+2024-04-30 11:31:28 ERROR: reports of ticker NIO   do not contains any information
+2024-04-30 11:31:47 ERROR: reports of ticker PSO   do not contains any information
+2024-04-30 11:31:55 ERROR: reports of ticker RELX  do not contains any information
+2024-04-30 11:32:02 ERROR: reports of ticker RTO   do not contains any information
+2024-04-30 11:32:03 WARNING: reports of ticker RYAAY contains mismatched dates
+2024-04-30 11:32:16 ERROR: reports of ticker SREA  do not contains any information
+2024-04-30 11:32:17 ERROR: reports of ticker STLA  do not contains any information
+2024-04-30 11:32:18 WARNING: reports of ticker STN   contains mismatched dates
+2024-04-30 11:32:21 ERROR: reports of ticker TCOM  do not contains any information
+2024-04-30 11:32:39 ERROR: reports of ticker UL    do not contains any information
+2024-04-30 11:32:45 ERROR: reports of ticker VIPS  do not contains any information
+2024-04-30 11:32:51 ERROR: reports of ticker WPP   do not contains any information
+2024-04-30 11:33:17 WARNING: reports of ticker ASX   contains mismatched dates
+2024-04-30 11:33:24 ERROR: reports of ticker CDAY  do not contains any information
+2024-04-30 11:33:58 WARNING: reports of ticker GFS   contains mismatched dates
+2024-04-30 11:33:59 ERROR: reports of ticker GLOB  do not contains any information
+2024-04-30 11:34:14 WARNING: reports of ticker INFY  contains mismatched dates
+2024-04-30 11:35:17 WARNING: reports of ticker SATX  contains mismatched dates
+2024-04-30 11:35:35 WARNING: reports of ticker TSM   contains mismatched dates
+2024-04-30 11:35:53 WARNING: reports of ticker WIT   contains mismatched dates
+2024-04-30 11:36:01 ERROR: reports of ticker ALC   do not contains any information
+2024-04-30 11:36:05 ERROR: reports of ticker ARGX  do not contains any information
+2024-04-30 11:36:19 ERROR: reports of ticker BTI   do not contains any information
+2024-04-30 11:37:16 ERROR: reports of ticker PHG   do not contains any information
+2024-04-30 11:37:29 ERROR: reports of ticker SNN   do not contains any information
+2024-04-30 11:37:30 ERROR: reports of ticker SNY   do not contains any information
+2024-04-30 11:37:49 WARNING: reports of ticker ACI   contains mismatched dates
+2024-04-30 11:37:53 ERROR: reports of ticker BUD   do not contains any information
+2024-04-30 11:37:55 ERROR: reports of ticker CCEP  do not contains any information
+2024-04-30 11:38:02 ERROR: reports of ticker DEO   do not contains any information
+2024-04-30 11:38:03 ERROR: reports of ticker FMX   do not contains any information
+2024-04-30 11:38:12 ERROR: reports of ticker KOF   do not contains any information
+2024-04-30 11:38:14 WARNING: reports of ticker KR    contains mismatched dates
+2024-04-30 11:38:30 ERROR: reports of ticker AEG   do not contains any information
+2024-04-30 11:38:45 ERROR: reports of ticker ASBA  do not contains any information
+2024-04-30 11:38:49 ERROR: reports of ticker BAP   do not contains any information
+2024-04-30 11:38:53 WARNING: reports of ticker BBVA  contains mismatched dates
+2024-04-30 11:38:55 ERROR: reports of ticker BCS   do not contains any information
+2024-04-30 11:39:00 WARNING: reports of ticker BLK   contains mismatched dates
+2024-04-30 11:39:04 ERROR: reports of ticker BPYPM do not contains any information
+2024-04-30 11:39:12 WARNING: reports of ticker BSBR  contains mismatched dates
+2024-04-30 11:39:19 ERROR: reports of ticker CET   do not contains any information
+2024-04-30 11:39:29 ERROR: reports of ticker DB    do not contains any information
+2024-04-30 11:39:51 ERROR: reports of ticker HDB   do not contains any information
+2024-04-30 11:39:54 ERROR: reports of ticker HSBC  do not contains any information
+2024-04-30 11:39:56 ERROR: reports of ticker IBN   do not contains any information
+2024-04-30 11:40:00 ERROR: reports of ticker ING   do not contains any information
+2024-04-30 11:40:06 WARNING: reports of ticker KB    contains mismatched dates
+2024-04-30 11:40:11 ERROR: reports of ticker LYG   do not contains any information
+2024-04-30 11:40:14 WARNING: reports of ticker MCO   contains mismatched dates
+2024-04-30 11:40:16 ERROR: reports of ticker MFG   do not contains any information
+2024-04-30 11:40:24 ERROR: reports of ticker MUFG  do not contains any information
+2024-04-30 11:40:30 ERROR: reports of ticker NWG   do not contains any information
+2024-04-30 11:40:36 ERROR: reports of ticker PFH   do not contains any information
+2024-04-30 11:40:39 ERROR: reports of ticker PRH   do not contains any information
+2024-04-30 11:40:40 ERROR: reports of ticker PRS   do not contains any information
+2024-04-30 11:40:42 ERROR: reports of ticker PUK   do not contains any information
+2024-04-30 11:40:53 ERROR: reports of ticker SAN   do not contains any information
+2024-04-30 11:40:57 ERROR: reports of ticker SMFG  do not contains any information
+2024-04-30 11:41:28 ERROR: reports of ticker AESC  do not contains any information
+2024-04-30 11:41:30 ERROR: reports of ticker AQNB  do not contains any information
+2024-04-30 11:41:44 ERROR: reports of ticker DUKB  do not contains any information
+2024-04-30 11:42:06 ERROR: reports of ticker NGG   do not contains any information
+2024-04-30 11:42:20 ERROR: reports of ticker TVE   do not contains any information
+2024-04-30 11:42:33 ERROR: reports of ticker BHP   do not contains any information
+2024-04-30 11:42:40 ERROR: reports of ticker GFI   do not contains any information
+2024-04-30 11:42:43 ERROR: reports of ticker RIO   do not contains any information
+2024-04-30 11:42:46 ERROR: reports of ticker SOJE  do not contains any information
+2024-04-30 11:43:02 ERROR: reports of ticker BNH   do not contains any information
+2024-04-30 11:43:03 ERROR: reports of ticker BNJ   do not contains any information
+2024-04-30 11:43:46 ERROR: reports of ticker AMX   do not contains any information
+2024-04-30 11:43:57 ERROR: reports of ticker ORAN  do not contains any information
+2024-04-30 11:44:02 ERROR: reports of ticker TBC   do not contains any information
+2024-04-30 11:44:04 WARNING: reports of ticker TIMB  contains mismatched dates
+2024-04-30 11:44:09 WARNING: reports of ticker VIV   contains mismatched dates
+2024-04-30 11:44:10 ERROR: reports of ticker VOD   do not contains any information
+2024-04-30 11:44:25 WARNING: reports of ticker EC    contains mismatched dates
+2024-04-30 11:44:54 ERROR: reports of ticker WDS   do not contains any information

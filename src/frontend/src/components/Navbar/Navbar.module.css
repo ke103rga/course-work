@@ -1,0 +1,41 @@
+.navbar {
+  display: flex;
+  gap: 2vw;
+  height: 100%;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 0.5vw;
+}
+
+.nav-buttons :only-child {
+  height: 100%;
+}
+
+.buttons-wrapper {
+  display: flex;
+  gap: 1vw;
+}
+
+@media (orientation: portrait) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (min-width: 744px) {
+}
+
+@media (min-width: 834px) {
+}
+
+@media (min-width: 1024px) {
+}
+
+@media (min-width: 1280px) {
+}
+
+@media (min-width: 1440px) {
+}

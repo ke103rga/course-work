@@ -1,0 +1,3 @@
+symbol,sector,market_cap,ordinary_shares_number,date,predictions,prev_market_cap,fair_market_cup_via_diff,market_cap_norm,fair_market_cap_norm
+TIMB,Telecommunications,26768703791.217987,2420792151.0,2023-03-31,0.20081962527403152,34583317436.51362,41528326284.84717,11.0578282320356,17.154850022003053
+TIMB,Telecommunications,34583317436.51362,2420088151.0,2023-06-30,0.231577089110859,,,14.2901065079896,

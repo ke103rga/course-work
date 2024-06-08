@@ -1,0 +1,3 @@
+symbol,sector,market_cap,ordinary_shares_number,date,predictions,prev_market_cap,fair_market_cup_via_diff,market_cap_norm,fair_market_cap_norm
+SE,Consumer Discretionary,46201897619.32423,566758842.0,2023-03-31,0.30583826179164797,33854801623.63656,44208895305.51063,81.51950035095214,78.00300944490714
+SE,Consumer Discretionary,33854801623.63656,568758842.0,2023-06-30,-0.275269920724148,,,59.5240005493164,

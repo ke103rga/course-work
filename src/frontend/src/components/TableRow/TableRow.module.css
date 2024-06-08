@@ -1,0 +1,17 @@
+td {
+  font-weight: 400;
+  border-inline: 2px solid var(--cyan);
+  text-align: right;
+  padding: 0.5vw;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+tr :first-child {
+  font-weight: bold;
+  border: none;
+}
+
+tr :last-child {
+  border: none;
+}

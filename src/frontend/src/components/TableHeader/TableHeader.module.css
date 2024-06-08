@@ -1,0 +1,16 @@
+th {
+  border-inline: 2px solid var(--cyan);
+  font-weight: 400;
+  font-style: italic;
+  padding: 0.5vw;
+  text-align: right;
+}
+
+th:first-child {
+  width: 20%;
+  border: none;
+}
+
+th:last-child {
+  border: none;
+}

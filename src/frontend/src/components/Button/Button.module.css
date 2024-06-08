@@ -1,0 +1,60 @@
+.btn {
+  background-color: var(--cyan);
+  color: var(--light-blue);
+  transition: all 0.3s ease-out;
+  box-shadow: 0 9px 9px rgba(0, 0, 0, 0.3);
+  border-radius: 0.5vw;
+  padding: 0.1vw 0.5vw;
+  max-width: 12vw;
+  text-align: center;
+  min-width: 10vw;
+  min-height: 2vw;
+}
+
+.btn:hover {
+  background-color: var(--yellow);
+  color: var(--dark-brown);
+}
+
+@media (orientation: portrait) {
+  .btn {
+    font-size: 6px;
+    max-width: 18vw;
+    padding: 1vw 2vw;
+  }
+}
+
+@media (min-width: 744px) {
+  .btn {
+    font-size: 9px;
+  }
+}
+
+@media (min-width: 834px) {
+  .btn {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .btn {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .btn {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .btn {
+    font-size: 22px;
+  }
+}
+
+.wide {
+  max-width: none;
+  padding: 0.5vw 3vw;
+}
